@@ -347,7 +347,12 @@
                     <div id="start-overlay" 
                          class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center rounded-2xl z-10">
                         <div class="text-center">
-                            <div class="text-6xl mb-4">🐦</div>
+                            <div class="mb-4">
+                                <img src="https://i.imgur.com/CaNwds2.jpg" 
+                                     class="w-16 h-16 mx-auto rounded-full border-4 border-[#f7d51d] object-cover transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_#f7d51d]" 
+                                     style="animation: birdFloat 3s ease-in-out infinite;"
+                                     alt="MegaFlappyBird">
+                            </div>
                             <div class="font-black text-4xl mb-2">READY?</div>
                             <div class="text-sm text-white/70 mb-8">Click or press SPACE to flap</div>
                             
@@ -1253,8 +1258,9 @@
             // Load bird image (the icon)
             birdImg.src = 'https://i.imgur.com/2ZFZIUB.jpg';
             
-            // Load high score
-            const savedHigh = localStorage.getItem('megaFlappyHighScore');
+            // Load high score (per wallet)
+            const highScoreKey = connectedAddress ? `megaFlappyHighScore_${connectedAddress}` : 'megaFlappyHighScore';
+            const savedHigh = localStorage.getItem(highScoreKey);
             if (savedHigh) highScore = parseInt(savedHigh);
             document.getElementById('high-score').innerText = highScore;
             
@@ -1434,10 +1440,11 @@
                     // Score sound
                     playScoreSound();
                     
-                    // Live high score update
+                    // Live high score update (per wallet)
                     if (score > highScore) {
                         highScore = score;
-                        localStorage.setItem('megaFlappyHighScore', highScore);
+                        const highScoreKey = connectedAddress ? `megaFlappyHighScore_${connectedAddress}` : 'megaFlappyHighScore';
+                        localStorage.setItem(highScoreKey, highScore);
                         const hsEl = document.getElementById('high-score');
                         if (hsEl) hsEl.innerText = highScore;
                     }
@@ -1655,10 +1662,11 @@
             finalScoreEl.innerText = score;
             gameOver.style.display = 'flex';
             
-            // Update high score
+            // Update high score (per wallet)
             if (score > highScore) {
                 highScore = score;
-                localStorage.setItem('megaFlappyHighScore', highScore);
+                const highScoreKey = connectedAddress ? `megaFlappyHighScore_${connectedAddress}` : 'megaFlappyHighScore';
+                localStorage.setItem(highScoreKey, highScore);
                 document.getElementById('high-score').innerText = highScore;
                 
                 // New high score animation
@@ -1889,20 +1897,11 @@
             }
         }
         
-        // Fallback local scores (jika Supabase gagal)
+        // Local leaderboard (only real submissions - no bots)
         function getLocalLeaderboard() {
             const saved = localStorage.getItem('megaFlappyLeaderboard');
             if (saved) return JSON.parse(saved);
-            
-            const defaults = [
-                { name: "MegaFlappy", score: 156, date: "2026-04-28" },
-                { name: "ETHBird88", score: 134, date: "2026-04-29" },
-                { name: "FlapMaster", score: 112, date: "2026-04-27" },
-                { name: "MegaETH", score: 98, date: "2026-04-30" },
-                { name: "BirdKing", score: 87, date: "2026-04-25" }
-            ];
-            localStorage.setItem('megaFlappyLeaderboard', JSON.stringify(defaults));
-            return defaults;
+            return []; // Start empty
         }
         
         function saveLocalLeaderboard(scores) {
