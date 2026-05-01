@@ -913,13 +913,7 @@
                 }
             });
             
-            // Fake balance update
-            setTimeout(() => {
-                const stats = document.querySelectorAll('.text-3xl.font-black');
-                if (stats.length > 0) {
-                    stats[0].innerHTML = '$4.8M';
-                }
-            }, 1500);
+            // No fake stats
         }
         
         // Multi-Wallet Support
@@ -936,87 +930,15 @@
         function connectWithWallet(walletType) {
             hideWalletModal();
             
-            if (walletType === 'metamask') {
-                connectMetaMask();
-            } else {
-                // Simulate other wallets
-                const walletNames = {
-                    'walletconnect': 'WalletConnect',
-                    'coinbase': 'Coinbase Wallet',
-                    'megaeth': 'MegaETH Native'
-                };
-                
-                const connectingToast = document.createElement('div');
-                connectingToast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#70c5ce] text-black px-5 py-2 rounded-2xl text-sm font-bold z-[200] flex items-center gap-2';
-                connectingToast.innerHTML = `Connecting to ${walletNames[walletType]}...`;
-                document.body.appendChild(connectingToast);
-                
-                setTimeout(() => {
-                    connectingToast.remove();
-                    connectWallet(); // fallback simulation
-                }, 1000);
-            }
-        }
-        
-        // Real MetaMask Connection
-        async function connectMetaMask() {
-            if (typeof window.ethereum === 'undefined') {
-                alert("MetaMask not detected!\n\nPlease install MetaMask from:\nhttps://metamask.io/download/");
-                window.open('https://metamask.io/download/', '_blank');
-                return;
-            }
+            const connectingToast = document.createElement('div');
+            connectingToast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#70c5ce] text-black px-5 py-2 rounded-2xl text-sm font-bold z-[200] flex items-center gap-2';
+            connectingToast.innerHTML = `Connecting...`;
+            document.body.appendChild(connectingToast);
             
-            try {
-                const accounts = await window.ethereum.request({ 
-                    method: 'eth_requestAccounts' 
-                });
-                
-                if (accounts.length > 0) {
-                    const address = accounts[0];
-                    const shortAddr = address.substring(0, 6) + '...' + address.substring(address.length - 4);
-                    
-                    walletConnected = true;
-                    connectedAddress = address;
-                    
-                    // Update UI
-                    const container = document.getElementById('wallet-button-container');
-                    container.innerHTML = `
-                        <div class="flex items-center gap-x-1 bg-[#166534] border border-[#22c55e] rounded-full px-1 py-1">
-                            <button onclick="copyAddress()" 
-                                    class="px-3 py-1.5 flex items-center gap-x-1.5 hover:bg-white/10 rounded-full transition-all">
-                                <i class="fas fa-check-circle text-[#22c55e]"></i>
-                                <span class="font-mono text-xs text-white">${shortAddr}</span>
-                            </button>
-                            
-                            <button onclick="copyAddress()" 
-                                    class="px-2 py-1.5 text-white/70 hover:text-white transition-all" title="Copy Address">
-                                <i class="fas fa-copy text-xs"></i>
-                            </button>
-                            
-                            <button onclick="showWalletModal()" 
-                                    class="px-2 py-1.5 text-white/70 hover:text-[#70c5ce] transition-all" title="Switch Wallet">
-                                <i class="fas fa-exchange-alt text-xs"></i>
-                            </button>
-                            
-                            <button onclick="disconnectWallet()" 
-                                    class="px-2 py-1.5 text-white/70 hover:text-red-400 transition-all" title="Disconnect">
-                                <i class="fas fa-power-off text-xs"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    // Show verified modal
-                    setTimeout(() => {
-                        showWalletVerifiedModal(shortAddr);
-                    }, 500);
-                }
-            } catch (error) {
-                if (error.code === 4001) {
-                    alert("Connection rejected by user.");
-                } else {
-                    alert("Failed to connect to MetaMask: " + error.message);
-                }
-            }
+            setTimeout(() => {
+                connectingToast.remove();
+                connectWallet(); // Use original working flow
+            }, 800);
         }
         
         function copyAddress() {
@@ -1284,16 +1206,22 @@
             drawStartScreen();
         }
         
+        // Pre-create gradients for better performance
+        let skyGradient = null;
+        let startSkyGradient = null;
+        
         function drawStartScreen() {
             ctx.fillStyle = '#0f172a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Sky gradient - Classic Flappy Bird
-            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            grad.addColorStop(0, '#70c5ce');
-            grad.addColorStop(0.6, '#5fcde4');
-            grad.addColorStop(1, '#4fc3f7');
-            ctx.fillStyle = grad;
+            // Use cached gradient
+            if (!startSkyGradient) {
+                startSkyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                startSkyGradient.addColorStop(0, '#70c5ce');
+                startSkyGradient.addColorStop(0.6, '#5fcde4');
+                startSkyGradient.addColorStop(1, '#4fc3f7');
+            }
+            ctx.fillStyle = startSkyGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             // Draw decorative pipes - Classic green
@@ -1373,7 +1301,7 @@
             initAudio(); // Prepare audio on game start
             
             if (gameLoopInterval) clearInterval(gameLoopInterval);
-            gameLoopInterval = setInterval(gameLoop, 1000 / 60); // 60 FPS
+            gameLoopInterval = setInterval(gameLoop, 1000 / 60); // Stable 60 FPS
         }
         
         function handleFlap() {
@@ -1386,6 +1314,23 @@
             
             // Sound effect
             playFlapSound();
+        }
+        
+        function activatePowerUp(type) {
+            activePowerUp = type;
+            powerUpTimer = 300; // 5 seconds at 60fps
+            
+            if (type === 'shield') {
+                showAchievementNotification("🛡️ SHIELD ACTIVATED!");
+            } else if (type === 'double') {
+                showAchievementNotification("✨ DOUBLE SCORE!");
+            } else if (type === 'slow') {
+                showAchievementNotification("🐢 SLOW MOTION!");
+            }
+        }
+        
+        function showAchievementNotification(text) {
+            achievementQueue.push({ text: text, timer: 120 });
         }
         
         function createFlapParticles(x, y) {
@@ -1421,10 +1366,30 @@
             bird.vy += 0.21;
             bird.y += bird.vy;
             
+            // Power-up timer
+            if (activePowerUp) {
+                powerUpTimer--;
+                if (powerUpTimer <= 0) {
+                    activePowerUp = null;
+                }
+            }
+            
             // Clamp bird
             if (bird.y < 20) {
                 bird.y = 20;
                 bird.vy = 0;
+            }
+            
+            // Spawn power-ups randomly
+            if (Math.random() < 0.015 && powerUps.length < 2 && score > 5) {
+                const types = ['shield', 'double', 'slow'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                powerUps.push({
+                    x: canvas.width + 50,
+                    y: 100 + Math.random() * (canvas.height - 200),
+                    type: type,
+                    size: 28
+                });
             }
             
             // Move pipes
@@ -1448,6 +1413,10 @@
                         const hsEl = document.getElementById('high-score');
                         if (hsEl) hsEl.innerText = highScore;
                     }
+                    
+                    // Combo system
+                    combo++;
+                    multiplier = Math.min(1 + Math.floor(combo / 5) * 0.5, 5);
                     
                     // Score pop effect
                     const pop = document.createElement('div');
@@ -1477,6 +1446,28 @@
                         gap: 180,
                         passed: false
                     });
+                }
+            }
+            
+            // Update power-ups
+            for (let i = powerUps.length - 1; i >= 0; i--) {
+                const pu = powerUps[i];
+                pu.x -= 2.5;
+                
+                // Collision with bird
+                const distX = bird.x - pu.x;
+                const distY = bird.y - pu.y;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+                
+                if (distance < bird.size / 2 + pu.size / 2) {
+                    activatePowerUp(pu.type);
+                    powerUps.splice(i, 1);
+                    playScoreSound();
+                }
+                
+                // Remove off-screen
+                if (pu.x < -50) {
+                    powerUps.splice(i, 1);
                 }
             }
             
@@ -1530,12 +1521,14 @@
             ctx.fillStyle = '#0f172a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Sky gradient - Classic Flappy Bird sky
-            const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            skyGrad.addColorStop(0, '#70c5ce');
-            skyGrad.addColorStop(0.6, '#5fcde4');
-            skyGrad.addColorStop(1, '#4fc3f7');
-            ctx.fillStyle = skyGrad;
+            // Use cached sky gradient for performance
+            if (!skyGradient) {
+                skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                skyGradient.addColorStop(0, '#70c5ce');
+                skyGradient.addColorStop(0.6, '#5fcde4');
+                skyGradient.addColorStop(1, '#4fc3f7');
+            }
+            ctx.fillStyle = skyGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             // Clouds
@@ -1588,6 +1581,42 @@
                 ctx.stroke();
             }
             
+            // Draw power-ups
+            powerUps.forEach(pu => {
+                ctx.save();
+                ctx.translate(pu.x, pu.y);
+                
+                if (pu.type === 'shield') {
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, pu.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 14px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('🛡️', 0, 5);
+                } else if (pu.type === 'double') {
+                    ctx.fillStyle = '#f7d51d';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, pu.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#000000';
+                    ctx.font = 'bold 12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('2x', 0, 4);
+                } else if (pu.type === 'slow') {
+                    ctx.fillStyle = '#22c55e';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, pu.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 14px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('🐢', 0, 5);
+                }
+                ctx.restore();
+            });
+            
             // Draw bird
             ctx.save();
             ctx.shadowColor = '#f7d51d';
@@ -1620,13 +1649,20 @@
             
             ctx.restore();
             
-            // Score
+            // Score + Combo + Multiplier
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 42px "Press Start 2P"';
             ctx.textAlign = 'center';
             ctx.shadowColor = '#000000';
             ctx.shadowBlur = 12;
             ctx.fillText(score.toString(), canvas.width / 2, 68);
+            
+            // Combo display
+            if (combo > 3) {
+                ctx.font = 'bold 16px "Press Start 2P"';
+                ctx.fillStyle = '#f7d51d';
+                ctx.fillText(`COMBO x${combo}  ${multiplier.toFixed(1)}x`, canvas.width / 2, 95);
+            }
             ctx.shadowBlur = 0;
             
             // Speed indicator
@@ -1634,6 +1670,20 @@
                 ctx.fillStyle = '#22c55e';
                 ctx.font = '9px monospace';
                 ctx.fillText('MEGAETH MODE ACTIVE', canvas.width / 2, 95);
+            }
+            
+            // Achievement notifications
+            if (achievementQueue.length > 0) {
+                const notif = achievementQueue[0];
+                ctx.fillStyle = 'rgba(34, 197, 94, 0.9)';
+                ctx.font = 'bold 14px "Press Start 2P"';
+                ctx.textAlign = 'center';
+                ctx.fillText(notif.text, canvas.width / 2, 130);
+                
+                notif.timer--;
+                if (notif.timer <= 0) {
+                    achievementQueue.shift();
+                }
             }
         }
         
@@ -1808,12 +1858,11 @@
             const finalScore = parseInt(document.getElementById('final-score').innerText) || 0;
             if (finalScore <= 0) return;
             
-            const defaultName = connectedAddress ? connectedAddress.split('...')[0].slice(-6) : "MegaPlayer";
-            const name = prompt("Enter your name for the Global Leaderboard:", defaultName);
-            if (!name || name.trim() === "") return;
+            // Use the connected wallet address
+            const displayName = connectedAddress || "Anonymous";
             
             globalScores.unshift({
-                name: name.trim().substring(0, 12),
+                name: displayName,
                 score: finalScore,
                 date: "just now",
                 country: "🌍"
@@ -1885,6 +1934,26 @@
         let walletConnected = false;
         let connectedAddress = '';
         let soundEnabled = true;
+
+        // === POWER-UPS & ACHIEVEMENTS ===
+        let combo = 0;
+        let multiplier = 1;
+        let activePowerUp = null;
+        let powerUpTimer = 0;
+        let powerUps = [];
+        let unlockedSkins = ['default'];
+        let currentSkin = 'default';
+        let achievements = [];
+        let achievementQueue = [];
+
+        // === NEW FEATURES ===
+        let combo = 0;
+        let multiplier = 1;
+        let activePowerUp = null;
+        let powerUpTimer = 0;
+        let unlockedSkins = ['default'];
+        let currentSkin = 'default';
+        let achievements = [];
         
         function initSupabase() {
             if (supabase) return supabase;
@@ -2135,9 +2204,14 @@
                 return;
             }
             
-            const defaultName = connectedAddress ? connectedAddress.split('...')[0].slice(-6) : "MegaPlayer";
-            const name = prompt("Enter your name (max 12 chars):", defaultName);
-            if (!name || name.trim() === "") return;
+            // Use the connected wallet address
+            const displayName = connectedAddress || "Anonymous";
+            
+            globalScores.unshift({
+                name: displayName,
+                score: currentScore,
+                date: today
+            });
             
             const cleanName = name.trim().substring(0, 12);
             const today = new Date().toISOString().split('T')[0];
