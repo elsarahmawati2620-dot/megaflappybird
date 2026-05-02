@@ -662,6 +662,7 @@ var bird = { x:120, y:280, vy:0, size:32 };
 var pipes = [];
 var score = 0, highScore = 0, frame = 0;
 var gameRunning = false;
+var lastScore = 0;
 var gameLoopInterval = null;
 var soundEnabled = true;
 var audioCtx = null;
@@ -1030,6 +1031,7 @@ function endGame(){
   checkAchievements();
   if(todayChallenge.type==='games') updateDailyProgress('games',1);
   if(todayChallenge.type==='score'&&score>=todayChallenge.target) updateDailyProgress('score',todayChallenge.target);
+  lastScore = score;
   if(score>=25) launchConfetti();
 }
 
@@ -1317,36 +1319,34 @@ function refreshGlobalLeaderboard(){
   fetchLeaderboard(function(){ showToast('🔄 Leaderboard refreshed!'); });
 }
 function submitToLeaderboard(){
-  if(score<=0){showToast('Play the game first!');return;}
+  if(gameRunning||lastScore<=0){showToast('🎮 Play the game first!');return;}
   var name=prompt('Enter your name (max 12 chars):','MonadPlayer');
   if(!name||name.trim()==='') return;
   fetch(API_BASE+'/api/leaderboard',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name.trim().substring(0,12),score:score,country:'🌍'})
+    body:JSON.stringify({name:name.trim().substring(0,12),score:lastScore,country:'🌍'})
   }).then(function(r){
     if(!r.ok) throw new Error('fail');
     unlockAchievement('high_scorer');
-    if(score>highScore){highScore=score;localStorage.setItem('megaFlappyHighScore',String(highScore));}
     launchConfetti(); showToast('✅ Score submitted!','#166534','#22c55e');
     showLeaderboard();
-  }).catch(function(){ showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
+  }).catch(function(e){ console.error('Submit error:',e); showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
 }
 function submitScoreAfterGameOver(){
-  var fs=parseInt(document.getElementById('final-score').innerText||'0')||0;
-  if(fs<=0) return;
+  if(lastScore<=0) return;
   var name=prompt('Enter your name for the Leaderboard:','MonadPlayer');
   if(!name||name.trim()==='') return;
   fetch(API_BASE+'/api/leaderboard',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name.trim().substring(0,12),score:fs,country:'🌍'})
+    body:JSON.stringify({name:name.trim().substring(0,12),score:lastScore,country:'🌍'})
   }).then(function(r){
     if(!r.ok) throw new Error('fail');
     unlockAchievement('high_scorer');
-    showToast('✅ Score '+fs+' submitted!','#166534','#22c55e');
+    showToast('✅ Score '+lastScore+' submitted!','#166534','#22c55e');
     setTimeout(function(){showLeaderboard();},600);
-  }).catch(function(){ showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
+  }).catch(function(e){ console.error('Submit error:',e); showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
 }
 
 // ===================== SOUND =====================
