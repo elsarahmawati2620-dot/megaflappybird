@@ -737,9 +737,14 @@ if(dailyChallengeProgress.date !== getTodayStr()){
   localStorage.setItem('megaFlappyDaily', JSON.stringify(dailyChallengeProgress));
 }
 
-// ---- API config: change this URL if hosting the HTML file on a different domain ----
-var API_BASE = '';
-// -------------------------------------------------------------------------------------
+// ============================================================
+// KONFIGURASI API — WAJIB DIISI JIKA DEPLOY DI LUAR REPLIT
+// Ganti URL di bawah dengan URL deployment Replit kamu
+// Contoh: var API_BASE = 'https://namarepl--ayolah2643.replit.app';
+// Setelah deploy Replit, copy URL dari dashboard dan taruh di sini
+// ============================================================
+var API_BASE = 'https://namarepl--ayolah2643.replit.app';
+// ============================================================
 
 var globalScores = [];
 
