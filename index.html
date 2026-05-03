@@ -155,6 +155,10 @@
                 class="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-xs transition-all">
           <i class="fas fa-palette"></i>
         </button>
+        <button id="wallet-btn" onclick="connectWallet()"
+                style="display:flex;align-items:center;padding:7px 14px;background:#836EF9;border:1px solid #836EF9;border-radius:999px;font-size:11px;font-weight:900;color:white;cursor:pointer;font-family:'Press Start 2P',sans-serif;transition:all .2s">
+          <i class="fas fa-wallet" style="margin-right:6px"></i><span>Connect</span>
+        </button>
         <button class="md:hidden text-xl px-2" onclick="toggleMobileMenu()">
           <i class="fas fa-bars"></i>
         </button>
@@ -665,6 +669,15 @@ var gameRunning = false;
 var lastScore = 0;
 var gameLoopInterval = null;
 var soundEnabled = true;
+var walletAddress = null;
+var walletConnecting = false;
+var MONAD_MAINNET = {
+  chainId: '0xA1E7',
+  chainName: 'Monad Mainnet',
+  nativeCurrency: { name:'MON', symbol:'MON', decimals:18 },
+  rpcUrls: ['https://rpc.monad.xyz'],
+  blockExplorerUrls: ['https://explorer.monad.xyz']
+};
 var audioCtx = null;
 
 // Power-ups
@@ -1379,7 +1392,52 @@ function applyTheme(theme){
 // ===================== SKINS =====================
 function getUnlockedSkins(){
   var best=parseInt(localStorage.getItem('megaFlappyHighScore')||'0');
-  return { default:true, golden:best>=100, monad:best>=50, flappyeth:best>=200 };
+  return { default:true, golden:best>=100, monadbird:!!walletAddress&&best>=50, flappyeth:best>=200 };
+}
+
+// ===================== WALLET =====================
+function shortAddr(addr){ return addr.slice(0,6)+'...'+addr.slice(-4); }
+
+function updateWalletUI(){
+  var btn=document.getElementById('wallet-btn');
+  if(!btn) return;
+  if(walletAddress){
+    btn.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px"></span>'+shortAddr(walletAddress);
+    btn.style.background='rgba(131,110,249,0.2)';
+    btn.style.border='1px solid #836EF9';
+    btn.onclick=disconnectWallet;
+  } else {
+    btn.innerHTML='<i class="fas fa-wallet" style="margin-right:6px"></i><span>Connect</span>';
+    btn.style.background='#836EF9';
+    btn.style.border='1px solid #836EF9';
+    btn.onclick=connectWallet;
+  }
+}
+
+async function connectWallet(){
+  if(!window.ethereum){ showToast('🦊 Install MetaMask or a Web3 wallet first!'); return; }
+  if(walletConnecting) return;
+  walletConnecting=true;
+  try {
+    var accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+    walletAddress=accounts[0];
+    updateWalletUI();
+    try {
+      await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:MONAD_MAINNET.chainId}]});
+    } catch(e){
+      if(e.code===4902){
+        await window.ethereum.request({method:'wallet_addEthereumChain',params:[MONAD_MAINNET]});
+      }
+    }
+    showToast('✅ Wallet connected to Monad!');
+  } catch(e){ showToast('❌ Connection cancelled'); }
+  walletConnecting=false;
+}
+
+function disconnectWallet(){
+  walletAddress=null;
+  updateWalletUI();
+  showToast('👋 Wallet disconnected');
 }
 function showSkinsModal(){
   var unlocked=getUnlockedSkins();
@@ -1437,7 +1495,10 @@ function copyCA(){
 function toggleMobileMenu(){
   var m=document.createElement('div');
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:60;display:flex;flex-direction:column;padding:24px';
-  m.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px"><span style="font-weight:900;font-size:18px">MEGAFLAPPY</span><button onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="font-size:28px;background:none;border:none;color:white;cursor:pointer">×</button></div><div style="display:flex;flex-direction:column;gap:24px;font-size:14px;font-weight:bold"><a href="#game" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🎮 PLAY GAME</a><a href="#token" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">💎 TOKEN $MFB</a><a href="#launch" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🚀 BUY ON NAD.FUN</a><a href="#roadmap" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🗺️ ROADMAP</a><a href="https://x.com/megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">𝕏 Twitter</a><a href="https://t.me/Megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0">✈️ Telegram</a></div>';
+  var walletBtn=walletAddress
+    ?'<button onclick="disconnectWallet();this.closest(\'[style*=\"position:fixed\"]\').remove()" style="display:flex;align-items:center;gap:8px;padding:12px 0;border:none;background:none;color:#836EF9;font-weight:bold;font-size:14px;cursor:pointer"><span style=\'width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block\'></span>'+shortAddr(walletAddress)+'</button>'
+    :'<button onclick="connectWallet()" style="padding:10px 16px;background:#836EF9;border:none;border-radius:12px;color:white;font-weight:900;font-size:12px;cursor:pointer;font-family:\'Press Start 2P\',sans-serif">🔗 Connect Wallet (Monad)</button>';
+  m.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px"><span style="font-weight:900;font-size:18px">MEGAFLAPPY</span><button onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="font-size:28px;background:none;border:none;color:white;cursor:pointer">×</button></div><div style="display:flex;flex-direction:column;gap:24px;font-size:14px;font-weight:bold"><a href="#game" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🎮 PLAY GAME</a><a href="#token" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">💎 TOKEN $MFB</a><a href="#launch" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🚀 BUY ON NAD.FUN</a><a href="#roadmap" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🗺️ ROADMAP</a><a href="https://x.com/megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">𝕏 Twitter</a><a href="https://t.me/Megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">✈️ Telegram</a>'+walletBtn+'</div>';
   document.body.appendChild(m);
 }
 
@@ -1445,6 +1506,16 @@ function toggleMobileMenu(){
 document.addEventListener('DOMContentLoaded', function(){
   canvas = document.getElementById('flappy-canvas');
   ctx = canvas.getContext('2d', {alpha:true});
+
+  if(window.ethereum){
+    window.ethereum.request({method:'eth_accounts'}).then(function(accounts){
+      if(accounts&&accounts.length>0){ walletAddress=accounts[0]; updateWalletUI(); }
+    }).catch(function(){});
+    window.ethereum.on('accountsChanged',function(accounts){
+      walletAddress=(accounts&&accounts.length>0)?accounts[0]:null;
+      updateWalletUI();
+    });
+  }
 
   var savedHS=localStorage.getItem('megaFlappyHighScore');
   if(savedHS) highScore=parseInt(savedHS);
