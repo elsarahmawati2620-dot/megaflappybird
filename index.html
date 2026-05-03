@@ -1336,35 +1336,41 @@ function hideLeaderboard(){
 function refreshGlobalLeaderboard(){
   fetchLeaderboard(function(){ showToast('🔄 Leaderboard refreshed!'); });
 }
-function submitToLeaderboard(){
-  if(gameRunning||lastScore<=0){showToast('🎮 Play the game first!');return;}
-  var name=prompt('Enter your name (max 12 chars):','MonadPlayer');
-  if(!name||name.trim()==='') return;
+function showNameInputModal(onConfirm){
+  var old=document.getElementById('name-input-modal'); if(old) old.remove();
+  var m=document.createElement('div'); m.id='name-input-modal';
+  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px';
+  m.innerHTML='<div style="background:#1a0a2e;border:3px solid #836EF9;border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center"><div style="font-size:14px;font-weight:900;margin-bottom:4px;color:#f7d51d">🏆 SUBMIT SCORE</div><div style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:16px">Score: '+lastScore+'</div><input id="player-name-input" type="text" maxlength="12" value="MonadPlayer" placeholder="Your name (max 12)" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.1);border:2px solid #836EF9;border-radius:12px;color:white;font-family:sans-serif;font-size:14px;outline:none;box-sizing:border-box;margin-bottom:16px"><div style="display:flex;gap:10px"><button onclick="document.getElementById(\'name-input-modal\').remove()" style="flex:1;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;color:white;font-weight:bold;cursor:pointer;font-size:13px">Cancel</button><button id="confirm-name-btn" style="flex:1;padding:10px;background:#836EF9;border:none;border-radius:10px;color:white;font-weight:900;cursor:pointer;font-size:13px">SUBMIT ✓</button></div></div>';
+  document.body.appendChild(m);
+  var inp=document.getElementById('player-name-input');
+  inp.focus(); inp.select();
+  document.getElementById('confirm-name-btn').onclick=function(){
+    var name=inp.value.trim().substring(0,12);
+    if(!name){showToast('⚠️ Enter your name!');return;}
+    document.getElementById('name-input-modal').remove();
+    onConfirm(name);
+  };
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter') document.getElementById('confirm-name-btn').click();});
+}
+function _doSubmit(name){
   fetch(API_BASE+'/api/leaderboard',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name.trim().substring(0,12),score:lastScore,country:'🌍'})
+    body:JSON.stringify({name:name,score:lastScore,country:'🌍'})
   }).then(function(r){
     if(!r.ok) throw new Error('fail');
     unlockAchievement('high_scorer');
-    launchConfetti(); showToast('✅ Score submitted!','#166534','#22c55e');
+    launchConfetti(); showToast('✅ Score '+lastScore+' submitted!','#166534','#22c55e');
     showLeaderboard();
   }).catch(function(e){ console.error('Submit error:',e); showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
 }
+function submitToLeaderboard(){
+  if(gameRunning||lastScore<=0){showToast('🎮 Play the game first!');return;}
+  showNameInputModal(_doSubmit);
+}
 function submitScoreAfterGameOver(){
   if(lastScore<=0) return;
-  var name=prompt('Enter your name for the Leaderboard:','MonadPlayer');
-  if(!name||name.trim()==='') return;
-  fetch(API_BASE+'/api/leaderboard',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name.trim().substring(0,12),score:lastScore,country:'🌍'})
-  }).then(function(r){
-    if(!r.ok) throw new Error('fail');
-    unlockAchievement('high_scorer');
-    showToast('✅ Score '+lastScore+' submitted!','#166534','#22c55e');
-    setTimeout(function(){showLeaderboard();},600);
-  }).catch(function(e){ console.error('Submit error:',e); showToast('❌ Submit failed, try again','#7f1d1d','#f87171'); });
+  showNameInputModal(_doSubmit);
 }
 
 // ===================== SOUND =====================
