@@ -991,7 +991,7 @@ function resetGame(){
   pipesSurvivedThisRun=0; powerUpsCollectedThisRun=0; comboReached10=false;
   weatherParticles=[]; gameStartTime=Date.now();
   for(var i=0;i<3;i++){
-    pipes.push({x:300+i*160, gapY:180+Math.random()*180, width:55, gap:180, passed:false});
+    pipes.push({x:300+i*160, gapY:180+Math.random()*180, width:55, gap:220, passed:false});
   }
   updateComboHUD(); updatePowerUpHUD();
 }
@@ -1100,7 +1100,7 @@ function update(){
     }
     if(pipe.x<-pipe.width-20){
       pipes.splice(i,1);
-      pipes.push({x:460, gapY:130+Math.random()*220, width:55, gap:Math.max(140,180-score*.3), passed:false});
+      pipes.push({x:460, gapY:130+Math.random()*220, width:55, gap:Math.max(170,220-score*.3), passed:false});
     }
   }
 
