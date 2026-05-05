@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Play TonFlappyBird — the ultimate memecoin game on TON. Power-ups, combos, skins, achievements!">
   <meta property="og:title" content="TonFlappyBird • $TonfBird • Monad Memecoin">
-  <meta property="og:image" content="https://i.imgur.com/zfoDO9r.jpg">
+  <meta property="og:image" content="https://i.imgur.com/ZAMnB9Q.jpg">
   <meta property="og:url" content="https://tonflappybird.fun">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@tonflappybird">
@@ -29,7 +29,7 @@
       overflow-x: hidden;
     }
     .theme-neon  { --accent-primary:#00f9ff; --accent-secondary:#ff00aa; --accent-yellow:#ffea00; }
-    .theme-purple{ --accent-primary:#a855f7; --accent-secondary:#f97316; --accent-yellow:#eab308; }
+    .theme-purple{ --accent-primary:#38bdf8; --accent-secondary:#0ea5e9; --accent-yellow:#bae6fd; }
     .theme-dark  { --accent-primary:#22c55e; --accent-secondary:#eab308; --accent-yellow:#f1f5f9; }
 
     .meme-btn {
@@ -121,7 +121,7 @@
     <div class="flex items-center justify-between h-16 sm:h-20">
       <div class="flex items-center gap-x-3">
         <div class="relative">
-          <img src="https://i.imgur.com/zfoDO9r.jpg" alt="Logo"
+          <img src="https://i.imgur.com/ZAMnB9Q.jpg" alt="Logo"
                class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 border-[#f7d51d] object-cover shadow-[0_0_20px_#f7d51d]">
           <div class="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[#a855f7] rounded-full flex items-center justify-center">
             <i class="fas fa-rocket text-white" style="font-size:7px"></i>
@@ -190,7 +190,7 @@
       <div class="mt-6 sm:mt-8 flex items-center gap-x-4 sm:gap-x-6 text-xs sm:text-sm">
         <div class="flex -space-x-2">
           <div class="w-7 h-7 rounded-full border-2 border-[#0a0a0f] overflow-hidden">
-            <img src="https://i.imgur.com/zfoDO9r.jpg" class="w-full h-full object-cover" alt=""></div>
+            <img src="https://i.imgur.com/ZAMnB9Q.jpg" class="w-full h-full object-cover" alt=""></div>
           <div class="w-7 h-7 rounded-full border-2 border-[#0a0a0f] bg-[#a855f7]"></div>
           <div class="w-7 h-7 rounded-full border-2 border-[#0a0a0f] bg-[#836EF9]"></div>
         </div>
@@ -199,7 +199,7 @@
     </div>
     <div class="relative flex justify-center">
       <div class="relative">
-        <img src="https://i.imgur.com/zfoDO9r.jpg" alt="Mascot"
+        <img src="https://i.imgur.com/ZAMnB9Q.jpg" alt="Mascot"
              class="w-[220px] sm:w-[280px] md:w-[340px] bird-float rounded-3xl border-[8px] sm:border-[12px] border-[#f7d51d] shadow-[0_0_80px_#f7d51d] object-cover">
         <div class="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 bg-black border border-[#836EF9] px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-x-1.5">
           <i class="fas fa-rocket text-[#836EF9]"></i><span>TON SPEED</span>
@@ -250,7 +250,7 @@
       <div class="flex justify-between items-center px-3 sm:px-4 py-2 sm:py-3 bg-black/60 rounded-t-2xl mb-1">
         <div class="flex items-center gap-x-2 sm:gap-x-3">
           <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden border-2 border-[#f7d51d]">
-            <img src="https://i.imgur.com/zfoDO9r.jpg" class="w-full h-full object-cover" alt="">
+            <img src="https://i.imgur.com/ZAMnB9Q.jpg" class="w-full h-full object-cover" alt="">
           </div>
           <div>
             <div class="font-black text-xs sm:text-sm">MEGAFLAPPY</div>
@@ -290,7 +290,7 @@
         <div id="start-overlay" class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center rounded-2xl z-10">
           <div class="text-center px-4">
             <div class="mb-4">
-              <img src="https://i.imgur.com/zfoDO9r.jpg"
+              <img src="https://i.imgur.com/ZAMnB9Q.jpg"
                    class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full border-4 border-[#f7d51d] object-cover"
                    style="animation:birdFloat 3s ease-in-out infinite">
             </div>
@@ -760,7 +760,8 @@ var API_BASE = 'https://monad-chain-helper--ayolah2643.replit.app';
 var globalScores = [];
 
 var birdImg = new Image();
-birdImg.src = 'https://i.imgur.com/2RgjSy1.jpg';
+birdImg.src = 'https://i.imgur.com/ZAMnB9Q.jpg';
+birdImg.crossOrigin = 'anonymous';
 
 // ===================== AUDIO =====================
 function initAudio(){
@@ -1390,7 +1391,7 @@ function applyTheme(theme){
   else if(theme==='dark') body.classList.add('theme-dark');
   localStorage.setItem('megaFlappyTheme',theme);
   setTimeout(function(){body.classList.remove('theme-transitioning');},600);
-  hideThemeModal(); showToast('🎨 Theme: '+theme);
+  hideThemeModal(); showToast('🎨 Theme: '+(theme==='purple'?'Sky Blue':theme));
 }
 
 // ===================== SKINS =====================
