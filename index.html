@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Play TonFlappyBird — the ultimate memecoin game on TON. Power-ups, combos, skins, achievements!">
-  <meta property="og:title" content="TonFlappyBird • $TonfBird • Monad Memecoin">
+  <meta property="og:title" content="TonFlappyBird • $TonfBird • Ton Memecoin">
   <meta property="og:image" content="https://i.imgur.com/ZAMnB9Q.jpg">
   <meta property="og:url" content="https://tonflappybird.fun">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@tonflappybird">
-  <title>TonFlappyBird • $TonfBird • Monad Memecoin</title>
+  <title>TonFlappyBird • $TonfBird • Ton Memecoin</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -557,7 +557,7 @@
       <div class="uppercase text-[9px] sm:text-xs tracking-widest text-[#836EF9] mb-3 sm:mb-4">HOW TO BUY $TonfBird</div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">01</div>
-        <div><div class="font-bold text-xs sm:text-sm">Get Monad</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Bridge to TON network</div></div>
+        <div><div class="font-bold text-xs sm:text-sm">Get Ton</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Bridge to TON network</div></div>
       </div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">02</div>
@@ -725,7 +725,7 @@ var gameLoopInterval = null;
 var soundEnabled = true;
 var walletAddress = null;
 var walletConnecting = false;
-var MONAD_MAINNET = {
+var TON_MAINNET = {
   chainId: '0xA1E7',
   chainName: 'TON Mainnet',
   nativeCurrency: { name:'TON', symbol:'TON', decimals:18 },
@@ -765,7 +765,7 @@ var auroraOffset = 0;
 var SKINS = {
   default:  { name:'Classic',      color:'#f7d51d', glow:'#f7d51d', require:'' },
   golden:   { name:'Golden Bird',  color:'#ffd700', glow:'#ffaa00', require:'score_100' },
-  monad:    { name:'Monad Bird',   color:'#836EF9', glow:'#00f9ff', require:'score_50' },
+  ton:    { name:'Ton Bird',   color:'#836EF9', glow:'#00f9ff', require:'score_50' },
   flappyeth:{ name:'Flappy ETH',   color:'#a78bfa', glow:'#7c3aed', require:'score_200' },
 };
 var selectedSkin = localStorage.getItem('megaFlappySkin') || 'default';
@@ -807,10 +807,10 @@ if(dailyChallengeProgress.date !== getTodayStr()){
 // ============================================================
 // KONFIGURASI API — WAJIB DIISI JIKA DEPLOY DI LUAR REPLIT
 // Ganti URL di bawah dengan URL deployment Replit kamu
-// Contoh: var API_BASE = 'https://monad-chain-helper--ayolah2643.replit.app';
+// Contoh: var API_BASE = 'https://ton-chain-helper--ayolah2643.replit.app';
 // Setelah deploy Replit, copy URL dari dashboard dan taruh di sini
 // ============================================================
-var API_BASE = 'https://monad-chain-helper--ayolah2643.replit.app';
+var API_BASE = 'https://ton-chain-helper--ayolah2643.replit.app';
 // ============================================================
 
 var globalScores = [];
@@ -1265,7 +1265,7 @@ function draw(){
     ctx.fillStyle='#111827'; ctx.beginPath(); ctx.arc(6,-4,5,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(7,-4,2,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='#f87171'; ctx.beginPath(); ctx.moveTo(bird.size/2-4,2); ctx.lineTo(bird.size/2+6,5); ctx.lineTo(bird.size/2-4,8); ctx.closePath(); ctx.fill();
-    if(selectedSkin==='monad'){ ctx.strokeStyle='#00f9ff'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(0,0,bird.size/2+3,0,Math.PI*2); ctx.stroke(); }
+    if(selectedSkin==='ton'){ ctx.strokeStyle='#00f9ff'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(0,0,bird.size/2+3,0,Math.PI*2); ctx.stroke(); }
     if(selectedSkin==='flappyeth'){ ctx.fillStyle='rgba(168,85,247,.2)'; ctx.beginPath(); ctx.arc(0,0,bird.size/2+5,0,Math.PI*2); ctx.fill(); }
   }
   ctx.restore();
@@ -1317,7 +1317,7 @@ function drawStartScreen(){
   else { ctx.fillStyle='#f7d51d'; ctx.beginPath(); ctx.arc(200,295,28,0,Math.PI*2); ctx.fill(); }
   ctx.restore();
   ctx.fillStyle='#ffffff'; ctx.font='bold 28px "Press Start 2P"'; ctx.textAlign='center';
-  ctx.fillText('MONAD',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
+  ctx.fillText('TON',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
   ctx.font='12px "Press Start 2P"'; ctx.fillStyle='#836EF9'; ctx.fillText('TAP TO START',200,420);
   ctx.fillStyle='#22c55e'; ctx.font='9px monospace'; ctx.fillText('POWERED BY TON',200,560);
 }
@@ -1395,7 +1395,7 @@ function showNameInputModal(onConfirm){
   var old=document.getElementById('name-input-modal'); if(old) old.remove();
   var m=document.createElement('div'); m.id='name-input-modal';
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px';
-  m.innerHTML='<div style="background:#1a0a2e;border:3px solid #836EF9;border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center"><div style="font-size:14px;font-weight:900;margin-bottom:4px;color:#f7d51d">🏆 SUBMIT SCORE</div><div style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:16px">Score: '+lastScore+'</div><input id="player-name-input" type="text" maxlength="12" value="MonadPlayer" placeholder="Your name (max 12)" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.1);border:2px solid #836EF9;border-radius:12px;color:white;font-family:sans-serif;font-size:14px;outline:none;box-sizing:border-box;margin-bottom:16px"><div style="display:flex;gap:10px"><button onclick="document.getElementById(\'name-input-modal\').remove()" style="flex:1;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;color:white;font-weight:bold;cursor:pointer;font-size:13px">Cancel</button><button id="confirm-name-btn" style="flex:1;padding:10px;background:#836EF9;border:none;border-radius:10px;color:white;font-weight:900;cursor:pointer;font-size:13px">SUBMIT ✓</button></div></div>';
+  m.innerHTML='<div style="background:#1a0a2e;border:3px solid #836EF9;border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center"><div style="font-size:14px;font-weight:900;margin-bottom:4px;color:#f7d51d">🏆 SUBMIT SCORE</div><div style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:16px">Score: '+lastScore+'</div><input id="player-name-input" type="text" maxlength="12" value="TonPlayer" placeholder="Your name (max 12)" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.1);border:2px solid #836EF9;border-radius:12px;color:white;font-family:sans-serif;font-size:14px;outline:none;box-sizing:border-box;margin-bottom:16px"><div style="display:flex;gap:10px"><button onclick="document.getElementById(\'name-input-modal\').remove()" style="flex:1;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;color:white;font-weight:bold;cursor:pointer;font-size:13px">Cancel</button><button id="confirm-name-btn" style="flex:1;padding:10px;background:#836EF9;border:none;border-radius:10px;color:white;font-weight:900;cursor:pointer;font-size:13px">SUBMIT ✓</button></div></div>';
   document.body.appendChild(m);
   var inp=document.getElementById('player-name-input');
   inp.focus(); inp.select();
@@ -1466,7 +1466,7 @@ function applyTheme(theme){
 // ===================== SKINS =====================
 function getUnlockedSkins(){
   var best=parseInt(localStorage.getItem('megaFlappyHighScore')||'0');
-  return { default:true, golden:best>=100, monadbird:!!walletAddress&&best>=50, flappyeth:best>=200 };
+  return { default:true, golden:best>=100, tonbird:!!walletAddress&&best>=50, flappyeth:best>=200 };
 }
 
 // Wallet removed
@@ -1517,7 +1517,7 @@ function showDailyChallengeModal(){
 // ===================== SHARE / MISC =====================
 function shareScore(){
   var fs=document.getElementById('final-score')&&document.getElementById('final-score').innerText||String(score)||'0';
-  var text='I scored '+fs+' on TonFlappyBird on TON! 🐦💨\n\nBeat me → https://tonflappybird.fun\n\n#TonfBird #Monad #nadfun';
+  var text='I scored '+fs+' on TonFlappyBird on TON! 🐦💨\n\nBeat me → https://tonflappybird.fun\n\n#TonfBird #Ton #nadfun';
   window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text),'_blank');
 }
 function copyCA(){
@@ -1528,7 +1528,7 @@ function toggleMobileMenu(){
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:60;display:flex;flex-direction:column;padding:24px';
   var walletBtn=walletAddress
     ?'<button onclick="disconnectWallet();this.closest(\'[style*=\"position:fixed\"]\').remove()" style="display:flex;align-items:center;gap:8px;padding:12px 0;border:none;background:none;color:#836EF9;font-weight:bold;font-size:14px;cursor:pointer"><span style=\'width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block\'></span>'+shortAddr(walletAddress)+'</button>'
-    :'<button onclick="connectWallet()" style="padding:10px 16px;background:#836EF9;border:none;border-radius:12px;color:white;font-weight:900;font-size:12px;cursor:pointer;font-family:\'Press Start 2P\',sans-serif">🔗 Connect Wallet (Monad)</button>';
+    :'<button onclick="connectWallet()" style="padding:10px 16px;background:#836EF9;border:none;border-radius:12px;color:white;font-weight:900;font-size:12px;cursor:pointer;font-family:\'Press Start 2P\',sans-serif">🔗 Connect Wallet (Ton)</button>';
   m.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px"><span style="font-weight:900;font-size:18px">MEGAFLAPPY</span><button onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="font-size:28px;background:none;border:none;color:white;cursor:pointer">×</button></div><div style="display:flex;flex-direction:column;gap:24px;font-size:14px;font-weight:bold"><a href="#game" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🎮 PLAY GAME</a><a href="#token" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">💎 TOKEN $MFB</a><a href="#launch" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🚀 BUY ON GROYPFI.IO</a><a href="#roadmap" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🗺️ ROADMAP</a><a href="https://x.com/megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">𝕏 Twitter</a><a href="https://t.me/TONflappybirdchat" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">✈️ Telegram</a>'+walletBtn+'</div>';
   document.body.appendChild(m);
 }
@@ -1568,7 +1568,7 @@ document.addEventListener('DOMContentLoaded', function(){
     ctx.beginPath(); ctx.arc(200,295,38,0,Math.PI*2);
     ctx.strokeStyle='#f7d51d'; ctx.lineWidth=4; ctx.stroke();
     ctx.fillStyle='#ffffff'; ctx.font='bold 28px "Press Start 2P"'; ctx.textAlign='center';
-    ctx.fillText('MONAD',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
+    ctx.fillText('TON',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
     ctx.font='12px "Press Start 2P"'; ctx.fillStyle='#836EF9'; ctx.fillText('TAP TO START',200,420);
     ctx.fillStyle='#a855f7'; ctx.font='9px monospace'; ctx.fillText('POWERED BY TON',200,560);
   }
@@ -1594,7 +1594,7 @@ document.addEventListener('DOMContentLoaded', function(){
   var konami=[], code=[38,38,40,40,37,39,37,39,66,65];
   document.addEventListener('keydown',function(e){
     konami.push(e.keyCode); if(konami.length>code.length) konami.shift();
-    if(konami.join()===code.join()){ konami=[]; showToast('🌟 MONAD MODE UNLOCKED!'); }
+    if(konami.join()===code.join()){ konami=[]; showToast('🌟 TON MODE UNLOCKED!'); }
   });
 
   // Auto-refresh leaderboard periodically
