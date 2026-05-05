@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Play MonadFlappyBird — the ultimate memecoin game on Monad. Power-ups, combos, skins, achievements!">
-  <meta property="og:title" content="MonadFlappyBird • $MONFBIRD • Monad Memecoin">
+  <meta name="description" content="Play TonFlappyBird — the ultimate memecoin game on TON. Power-ups, combos, skins, achievements!">
+  <meta property="og:title" content="TonFlappyBird • $TonfBird • Monad Memecoin">
   <meta property="og:image" content="https://i.imgur.com/zfoDO9r.jpg">
-  <meta property="og:url" content="https://monadflappybird.fun">
+  <meta property="og:url" content="https://tonflappybird.fun">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@monadflappybird">
-  <title>MonadFlappyBird • $MONFBIRD • Monad Memecoin</title>
+  <meta name="twitter:site" content="@tonflappybird">
+  <title>TonFlappyBird • $TonfBird • Monad Memecoin</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -128,8 +128,8 @@
           </div>
         </div>
         <div>
-          <h1 class="text-lg sm:text-2xl font-black tracking-tighter leading-none">MONADFLAPPYBIRD</h1>
-          <p class="text-[8px] sm:text-[10px] text-[#836EF9] tracking-[3px]">ON MONAD</p>
+          <h1 class="text-lg sm:text-2xl font-black tracking-tighter leading-none">TONFLAPPYBIRD</h1>
+          <p class="text-[8px] sm:text-[10px] text-[#836EF9] tracking-[3px]">ON TON</p>
         </div>
       </div>
 
@@ -141,12 +141,12 @@
       </div>
 
       <div class="flex items-center gap-x-2 sm:gap-x-3">
-        <a href="https://x.com/monadflappybird" target="_blank"
+        <a href="https://x.com/tonflappybird" target="_blank"
            class="flex items-center gap-x-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-full text-xs font-bold border border-white/20 transition-all">
           <i class="fab fa-x-twitter"></i>
           <span class="hidden sm:inline">Twitter</span>
         </a>
-        <a href="https://t.me/Monadflappybird" target="_blank"
+        <a href="https://t.me/Megaflappybird" target="_blank"
            class="flex items-center gap-x-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-full text-xs font-bold border border-white/20 transition-all">
           <i class="fab fa-telegram"></i>
           <span class="hidden sm:inline">Telegram</span>
@@ -154,10 +154,6 @@
         <button onclick="showThemeModal()"
                 class="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-xs transition-all">
           <i class="fas fa-palette"></i>
-        </button>
-        <button id="wallet-btn" onclick="connectWallet()"
-                style="display:flex;align-items:center;padding:7px 14px;background:#836EF9;border:1px solid #836EF9;border-radius:999px;font-size:11px;font-weight:900;color:white;cursor:pointer;font-family:'Press Start 2P',sans-serif;transition:all .2s">
-          <i class="fas fa-wallet" style="margin-right:6px"></i><span>Connect</span>
         </button>
         <button class="md:hidden text-xl px-2" onclick="toggleMobileMenu()">
           <i class="fas fa-bars"></i>
@@ -173,12 +169,14 @@
     <div>
       <div class="inline-flex items-center gap-x-2 bg-white/5 px-3 py-1.5 rounded-full mb-4 sm:mb-6 border border-[#836EF9]/30">
         <div class="w-2 h-2 bg-[#f7d51d] rounded-full" style="animation:pulse-dot 1.5s ease-in-out infinite"></div>
-        <span class="text-[9px] sm:text-xs font-bold tracking-widest">LIVE ON MONAD • REAL-TIME</span>
+        <span class="text-[9px] sm:text-xs font-bold tracking-widest">LIVE ON TON • REAL-TIME</span>
       </div>
       <h2 class="text-5xl sm:text-7xl md:text-8xl font-black leading-none tracking-tighter mb-4">
-        MONAD<br>FLAPPY<br>BIRD
+        TON<br>
+        FLAPPY<br>
+        BIRD
       </h2>
-      <p class="text-base sm:text-xl text-[#836EF9] font-bold mb-6 sm:mb-8 leading-relaxed">The fastest memecoin<br>that actually flies on Monad.</p>
+      <p class="text-base sm:text-xl text-[#836EF9] font-bold mb-6 sm:mb-8 leading-relaxed">The fastest memecoin<br>that actually flies on TON.</p>
       <div class="flex flex-wrap gap-3 sm:gap-4">
         <button onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})"
                 class="meme-btn px-7 sm:px-10 py-3 sm:py-4 bg-[#f7d51d] text-black font-black text-sm sm:text-lg rounded-2xl flex items-center gap-x-2 sm:gap-x-3 shadow-[0_0_30px_#f7d51d]">
@@ -186,7 +184,7 @@
         </button>
         <button onclick="document.getElementById('launch').scrollIntoView({behavior:'smooth'})"
                 class="meme-btn px-6 sm:px-8 py-3 sm:py-4 border-2 border-white hover:bg-white hover:text-black font-black text-sm sm:text-lg rounded-2xl transition-all">
-          BUY ON NAD.FUN
+          BUY ON GROYPFI.IO
         </button>
       </div>
       <div class="mt-6 sm:mt-8 flex items-center gap-x-4 sm:gap-x-6 text-xs sm:text-sm">
@@ -204,7 +202,7 @@
         <img src="https://i.imgur.com/zfoDO9r.jpg" alt="Mascot"
              class="w-[220px] sm:w-[280px] md:w-[340px] bird-float rounded-3xl border-[8px] sm:border-[12px] border-[#f7d51d] shadow-[0_0_80px_#f7d51d] object-cover">
         <div class="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 bg-black border border-[#836EF9] px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-x-1.5">
-          <i class="fas fa-rocket text-[#836EF9]"></i><span>MONAD SPEED</span>
+          <i class="fas fa-rocket text-[#836EF9]"></i><span>TON SPEED</span>
         </div>
         <div class="absolute -bottom-3 -left-3 bg-[#a855f7] text-white text-[9px] sm:text-xs px-2 sm:px-3 py-1 rounded font-bold">10,000x FASTER</div>
       </div>
@@ -350,7 +348,7 @@
                 🏆 VIEW ACHIEVEMENTS
               </button>
             </div>
-            <div class="mt-4 text-xs text-white/40">@monadflappybird on X</div>
+            <div class="mt-4 text-xs text-white/40">@tonflappybird on X</div>
           </div>
         </div>
       </div>
@@ -449,8 +447,8 @@
     <div class="grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
       <div>
         <div class="uppercase tracking-[4px] text-[9px] sm:text-xs text-[#a855f7] font-bold mb-3">THE TOKEN</div>
-        <h3 class="text-2xl sm:text-4xl font-black tracking-tighter mb-4 sm:mb-6">MONADFLAPPYBIRD<br>$MONFBIRD</h3>
-        <p class="text-white/80 text-sm sm:text-lg mb-5 sm:mb-6 leading-relaxed">The ultimate memecoin combining Flappy Bird gameplay with Monad's lightning speed.</p>
+        <h3 class="text-2xl sm:text-4xl font-black tracking-tighter mb-4 sm:mb-6">TONFLAPPYBIRD<br>$TonfBird</h3>
+        <p class="text-white/80 text-sm sm:text-lg mb-5 sm:mb-6 leading-relaxed">The ultimate memecoin combining Flappy Bird gameplay with TON's lightning speed.</p>
         <div class="grid grid-cols-2 gap-3 sm:gap-4 text-sm mb-6 sm:mb-8">
           <div class="bg-white/5 p-3 sm:p-4 rounded-2xl border border-white/10">
             <div class="text-[#836EF9] font-bold text-[9px] sm:text-xs">TOTAL SUPPLY</div>
@@ -462,9 +460,9 @@
             <div class="text-[9px] sm:text-xs mt-1 text-white/60">Fair launch only</div>
           </div>
         </div>
-        <a href="https://nad.fun" target="_blank"
+        <a href="https://groypfi.io" target="_blank"
            class="inline-flex items-center gap-x-2 sm:gap-x-3 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-[#f7d51d] to-[#a855f7] text-black font-black rounded-2xl text-xs sm:text-sm hover:brightness-110 transition-all">
-          BUY $MONFBIRD ON NAD.FUN <i class="fas fa-external-link-alt"></i>
+          BUY $TonfBird ON GROYPFI.IO <i class="fas fa-external-link-alt"></i>
         </a>
       </div>
       <div class="space-y-4">
@@ -473,16 +471,16 @@
             <div>
               <div class="text-[9px] sm:text-xs text-white/50 mb-2">CONTRACT ADDRESS</div>
               <div class="soon-badge">SOON</div>
-              <div class="text-[9px] sm:text-[10px] text-white/40 mt-2">Launching on nad.fun</div>
+              <div class="text-[9px] sm:text-[10px] text-white/40 mt-2">Launching on groypfi.io</div>
             </div>
             <button onclick="copyCA()" class="text-[#836EF9] hover:text-white px-3 pt-1" title="Copy">
               <i class="fas fa-copy"></i>
             </button>
           </div>
           <div class="text-[10px] sm:text-xs bg-black/60 p-3 rounded-xl font-mono leading-relaxed">
-            Chain: <span class="text-[#f7d51d]">Monad</span><br>
-            Symbol: <span class="text-[#a855f7]">$MONFBIRD</span><br>
-            Explorer: <span class="text-white/50">monad.xyz</span>
+            Chain: <span class="text-[#f7d51d]">TON</span><br>
+            Symbol: <span class="text-[#a855f7]">$TonfBird</span><br>
+            Explorer: <span class="text-white/50">tonviewer.com</span>
           </div>
         </div>
         <div class="text-[9px] sm:text-xs text-center text-white/50 pt-2">100% community owned • No team tokens • Renounced</div>
@@ -495,27 +493,27 @@
 <div id="launch" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
   <div class="max-w-3xl mx-auto text-center">
     <div class="inline-flex items-center gap-2 bg-[#f7d51d] text-black text-[9px] sm:text-xs font-black px-4 sm:px-5 py-1 rounded-full mb-4">
-      <i class="fas fa-rocket"></i><span>LIVE ON NAD.FUN</span>
+      <i class="fas fa-rocket"></i><span>LIVE ON GROYPFI.IO</span>
     </div>
-    <h3 class="text-3xl sm:text-5xl font-black tracking-tighter mb-3 sm:mb-4">LAUNCHING ON<br>NAD.FUN</h3>
-    <p class="text-base sm:text-xl text-white/70 mb-8 sm:mb-10">MonadFlappyBird launches on <span class="font-bold text-[#836EF9]">nad.fun</span> — the #1 memecoin launchpad on Monad.</p>
+    <h3 class="text-3xl sm:text-5xl font-black tracking-tighter mb-3 sm:mb-4">LAUNCHING ON<br>GROYPFI.IO</h3>
+    <p class="text-base sm:text-xl text-white/70 mb-8 sm:mb-10">TonFlappyBird launches on <span class="font-bold text-[#836EF9]">groypfi.io</span> — the #1 memecoin launchpad on TON.</p>
     <div class="bg-[#150d2a] border border-[#836EF9]/30 rounded-3xl p-6 sm:p-8 text-left space-y-3 sm:space-y-4">
-      <div class="uppercase text-[9px] sm:text-xs tracking-widest text-[#836EF9] mb-3 sm:mb-4">HOW TO BUY $MONFBIRD</div>
+      <div class="uppercase text-[9px] sm:text-xs tracking-widest text-[#836EF9] mb-3 sm:mb-4">HOW TO BUY $TonfBird</div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">01</div>
-        <div><div class="font-bold text-xs sm:text-sm">Get Monad</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Bridge to Monad network</div></div>
+        <div><div class="font-bold text-xs sm:text-sm">Get Monad</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Bridge to TON network</div></div>
       </div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">02</div>
-        <div><div class="font-bold text-xs sm:text-sm">Go to nad.fun</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Visit the official launchpad</div></div>
+        <div><div class="font-bold text-xs sm:text-sm">Go to groypfi.io</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Visit groypfi.io launchpad</div></div>
       </div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">03</div>
-        <div><div class="font-bold text-xs sm:text-sm">Find $MONFBIRD</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Search MonadFlappyBird</div></div>
+        <div><div class="font-bold text-xs sm:text-sm">Find $TonfBird</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Search TonFlappyBird</div></div>
       </div>
       <div class="flex items-center gap-x-4 sm:gap-x-5 bg-white/5 p-3 sm:p-4 rounded-2xl">
         <div class="text-[#f7d51d] font-black text-xl sm:text-2xl w-8 sm:w-10 text-center flex-shrink-0">04</div>
-        <div><div class="font-bold text-xs sm:text-sm">Buy &amp; Fly!</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Hold $MONFBIRD, play, win rewards</div></div>
+        <div><div class="font-bold text-xs sm:text-sm">Buy &amp; Fly!</div><div class="text-[10px] sm:text-xs text-white/50 mt-0.5">Hold $TonfBird, play, win rewards</div></div>
       </div>
     </div>
   </div>
@@ -533,7 +531,7 @@
         <div class="font-bold text-[9px] sm:text-xs text-[#a855f7] mb-1">PHASE 1</div>
         <div class="font-black text-lg sm:text-xl mb-3 sm:mb-4">Launch 🚀</div>
         <ul class="space-y-2 text-[10px] sm:text-sm text-white/70">
-          <li class="flex items-center gap-x-2"><i class="fas fa-check-circle text-[#22c55e] text-xs flex-shrink-0"></i>Token launch on nad.fun</li>
+          <li class="flex items-center gap-x-2"><i class="fas fa-check-circle text-[#22c55e] text-xs flex-shrink-0"></i>Token launch on groypfi.io</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-check-circle text-[#22c55e] text-xs flex-shrink-0"></i>Game goes live</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-check-circle text-[#22c55e] text-xs flex-shrink-0"></i>Power-ups &amp; combos</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-check-circle text-[#22c55e] text-xs flex-shrink-0"></i>Leaderboard system</li>
@@ -553,7 +551,7 @@
         <div class="font-bold text-[9px] sm:text-xs text-[#f7d51d] mb-1">PHASE 3</div>
         <div class="font-black text-lg sm:text-xl mb-3 sm:mb-4">Galaxy 🌌</div>
         <ul class="space-y-2 text-[10px] sm:text-sm text-white/70">
-          <li class="flex items-center gap-x-2"><i class="fas fa-circle text-white/20 text-xs flex-shrink-0"></i>$MONFBIRD staking</li>
+          <li class="flex items-center gap-x-2"><i class="fas fa-circle text-white/20 text-xs flex-shrink-0"></i>$TonfBird staking</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-circle text-white/20 text-xs flex-shrink-0"></i>Mobile app</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-circle text-white/20 text-xs flex-shrink-0"></i>NFT airdrop for top players</li>
           <li class="flex items-center gap-x-2"><i class="fas fa-circle text-white/20 text-xs flex-shrink-0"></i>Community events</li>
@@ -569,11 +567,11 @@
   <h3 class="text-2xl sm:text-3xl font-black mb-3 sm:mb-4">JOIN THE FLOCK</h3>
   <p class="text-white/60 mb-6 sm:mb-8 text-[10px] sm:text-sm">Follow for alpha, memes &amp; leaderboard updates</p>
   <div class="flex flex-wrap gap-4 justify-center">
-    <a href="https://x.com/monadflappybird" target="_blank"
+    <a href="https://x.com/tonflappybird" target="_blank"
        class="inline-flex items-center gap-x-2 sm:gap-x-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-black rounded-2xl text-xs sm:text-sm hover:bg-[#f7d51d] transition-all meme-btn">
-      <i class="fab fa-x-twitter text-lg sm:text-xl"></i><span>@monadflappybird</span>
+      <i class="fab fa-x-twitter text-lg sm:text-xl"></i><span>@tonflappybird</span>
     </a>
-    <a href="https://t.me/Monadflappybird" target="_blank"
+    <a href="https://t.me/Megaflappybird" target="_blank"
        class="inline-flex items-center gap-x-2 sm:gap-x-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#836EF9] text-white font-black rounded-2xl text-xs sm:text-sm hover:bg-[#9b7ff5] transition-all meme-btn">
       <i class="fab fa-telegram text-lg sm:text-xl"></i><span>Telegram</span>
     </a>
@@ -582,7 +580,7 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="border-t border-white/10 py-6 sm:py-8 text-center text-[9px] sm:text-xs text-white/30">
-  <p>© 2026 MonadFlappyBird • $MONFBIRD • Built on Monad</p>
+  <p>© 2026 TonFlappyBird • $TonfBird • Built on TON</p>
   <p class="mt-1">Not financial advice. Meme responsibly. 🐦</p>
 </footer>
 
@@ -673,10 +671,10 @@ var walletAddress = null;
 var walletConnecting = false;
 var MONAD_MAINNET = {
   chainId: '0xA1E7',
-  chainName: 'Monad Mainnet',
-  nativeCurrency: { name:'MON', symbol:'MON', decimals:18 },
-  rpcUrls: ['https://rpc.monad.xyz'],
-  blockExplorerUrls: ['https://explorer.monad.xyz']
+  chainName: 'TON Mainnet',
+  nativeCurrency: { name:'TON', symbol:'TON', decimals:18 },
+  rpcUrls: ['https://toncenter.com/api/v2/jsonRPC'],
+  blockExplorerUrls: ['https://tonviewer.com']
 };
 var audioCtx = null;
 
@@ -1226,7 +1224,7 @@ function draw(){
   }
   if(score>=200){ ctx.fillStyle='rgba(168,85,247,.8)'; ctx.font='9px monospace'; ctx.fillText('🌌 AURORA MODE',canvas.width/2,comboCount<3?92:108); }
   else if(score>=100){ ctx.fillStyle='rgba(255,255,255,.5)'; ctx.font='9px monospace'; ctx.fillText('🌙 NIGHT MODE',canvas.width/2,comboCount<3?92:108); }
-  else if(score>15){ ctx.fillStyle='#22c55e'; ctx.font='9px monospace'; ctx.fillText('MONAD MODE ACTIVE',canvas.width/2,95); }
+  else if(score>15){ ctx.fillStyle='#22c55e'; ctx.font='9px monospace'; ctx.fillText('TON MODE ACTIVE',canvas.width/2,95); }
 }
 
 function gameLoop(){ if(!gameRunning) return; update(); draw(); }
@@ -1264,7 +1262,7 @@ function drawStartScreen(){
   ctx.fillStyle='#ffffff'; ctx.font='bold 28px "Press Start 2P"'; ctx.textAlign='center';
   ctx.fillText('MONAD',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
   ctx.font='12px "Press Start 2P"'; ctx.fillStyle='#836EF9'; ctx.fillText('TAP TO START',200,420);
-  ctx.fillStyle='#22c55e'; ctx.font='9px monospace'; ctx.fillText('POWERED BY MONAD',200,560);
+  ctx.fillStyle='#22c55e'; ctx.font='9px monospace'; ctx.fillText('POWERED BY TON',200,560);
 }
 
 // ===================== CONFETTI =====================
@@ -1401,50 +1399,7 @@ function getUnlockedSkins(){
   return { default:true, golden:best>=100, monadbird:!!walletAddress&&best>=50, flappyeth:best>=200 };
 }
 
-// ===================== WALLET =====================
-function shortAddr(addr){ return addr.slice(0,6)+'...'+addr.slice(-4); }
-
-function updateWalletUI(){
-  var btn=document.getElementById('wallet-btn');
-  if(!btn) return;
-  if(walletAddress){
-    btn.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px"></span>'+shortAddr(walletAddress);
-    btn.style.background='rgba(131,110,249,0.2)';
-    btn.style.border='1px solid #836EF9';
-    btn.onclick=disconnectWallet;
-  } else {
-    btn.innerHTML='<i class="fas fa-wallet" style="margin-right:6px"></i><span>Connect</span>';
-    btn.style.background='#836EF9';
-    btn.style.border='1px solid #836EF9';
-    btn.onclick=connectWallet;
-  }
-}
-
-async function connectWallet(){
-  if(!window.ethereum){ showToast('🦊 Install MetaMask or a Web3 wallet first!'); return; }
-  if(walletConnecting) return;
-  walletConnecting=true;
-  try {
-    var accounts=await window.ethereum.request({method:'eth_requestAccounts'});
-    walletAddress=accounts[0];
-    updateWalletUI();
-    try {
-      await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:MONAD_MAINNET.chainId}]});
-    } catch(e){
-      if(e.code===4902){
-        await window.ethereum.request({method:'wallet_addEthereumChain',params:[MONAD_MAINNET]});
-      }
-    }
-    showToast('✅ Wallet connected to Monad!');
-  } catch(e){ showToast('❌ Connection cancelled'); }
-  walletConnecting=false;
-}
-
-function disconnectWallet(){
-  walletAddress=null;
-  updateWalletUI();
-  showToast('👋 Wallet disconnected');
-}
+// Wallet removed
 function showSkinsModal(){
   var unlocked=getUnlockedSkins();
   var old=document.getElementById('skins-modal'); if(old) old.remove();
@@ -1492,11 +1447,11 @@ function showDailyChallengeModal(){
 // ===================== SHARE / MISC =====================
 function shareScore(){
   var fs=document.getElementById('final-score')&&document.getElementById('final-score').innerText||String(score)||'0';
-  var text='I scored '+fs+' on MonadFlappyBird on Monad! 🐦💨\n\nBeat me → https://monadflappybird.fun\n\n#MONFBIRD #Monad #nadfun';
+  var text='I scored '+fs+' on TonFlappyBird on TON! 🐦💨\n\nBeat me → https://tonflappybird.fun\n\n#TonfBird #Monad #nadfun';
   window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text),'_blank');
 }
 function copyCA(){
-  showToast('🔔 Contract SOON! Follow @monadflappybird');
+  showToast('🔔 Contract SOON! Follow @tonflappybird');
 }
 function toggleMobileMenu(){
   var m=document.createElement('div');
@@ -1504,7 +1459,7 @@ function toggleMobileMenu(){
   var walletBtn=walletAddress
     ?'<button onclick="disconnectWallet();this.closest(\'[style*=\"position:fixed\"]\').remove()" style="display:flex;align-items:center;gap:8px;padding:12px 0;border:none;background:none;color:#836EF9;font-weight:bold;font-size:14px;cursor:pointer"><span style=\'width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block\'></span>'+shortAddr(walletAddress)+'</button>'
     :'<button onclick="connectWallet()" style="padding:10px 16px;background:#836EF9;border:none;border-radius:12px;color:white;font-weight:900;font-size:12px;cursor:pointer;font-family:\'Press Start 2P\',sans-serif">🔗 Connect Wallet (Monad)</button>';
-  m.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px"><span style="font-weight:900;font-size:18px">MEGAFLAPPY</span><button onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="font-size:28px;background:none;border:none;color:white;cursor:pointer">×</button></div><div style="display:flex;flex-direction:column;gap:24px;font-size:14px;font-weight:bold"><a href="#game" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🎮 PLAY GAME</a><a href="#token" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">💎 TOKEN $MFB</a><a href="#launch" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🚀 BUY ON NAD.FUN</a><a href="#roadmap" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🗺️ ROADMAP</a><a href="https://x.com/megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">𝕏 Twitter</a><a href="https://t.me/Monadflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">✈️ Telegram</a>'+walletBtn+'</div>';
+  m.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px"><span style="font-weight:900;font-size:18px">MEGAFLAPPY</span><button onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="font-size:28px;background:none;border:none;color:white;cursor:pointer">×</button></div><div style="display:flex;flex-direction:column;gap:24px;font-size:14px;font-weight:bold"><a href="#game" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🎮 PLAY GAME</a><a href="#token" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">💎 TOKEN $MFB</a><a href="#launch" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🚀 BUY ON GROYPFI.IO</a><a href="#roadmap" onclick="this.closest(\'[style*=\"position:fixed\"]\').remove()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">🗺️ ROADMAP</a><a href="https://x.com/megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">𝕏 Twitter</a><a href="https://t.me/Megaflappybird" target="_blank" style="color:#836EF9;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)">✈️ Telegram</a>'+walletBtn+'</div>';
   document.body.appendChild(m);
 }
 
@@ -1545,7 +1500,7 @@ document.addEventListener('DOMContentLoaded', function(){
     ctx.fillStyle='#ffffff'; ctx.font='bold 28px "Press Start 2P"'; ctx.textAlign='center';
     ctx.fillText('MONAD',200,180); ctx.fillStyle='#f7d51d'; ctx.fillText('FLAPPY',200,215);
     ctx.font='12px "Press Start 2P"'; ctx.fillStyle='#836EF9'; ctx.fillText('TAP TO START',200,420);
-    ctx.fillStyle='#a855f7'; ctx.font='9px monospace'; ctx.fillText('POWERED BY MONAD',200,560);
+    ctx.fillStyle='#a855f7'; ctx.font='9px monospace'; ctx.fillText('POWERED BY TON',200,560);
   }
   birdImg.onload=function(){ drawStartScreen(); };
   if(birdImg.complete) drawStartScreen(); else { setTimeout(drawStartScreen,200); drawStartScreen(); }
